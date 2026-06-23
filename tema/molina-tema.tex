@@ -1,0 +1,156 @@
+% molina-tema.tex
+% Tema Beamer institucional ITJMM / Tecnologico Superior de Jalisco.
+% Se carga con \input{../../tema/molina-tema.tex} desde slides.tex,
+% que vive en clases/XX-tema/. COMPILAR SIEMPRE desde la carpeta de la
+% clase para que las rutas relativas (../../tema/) resuelvan.
+%
+% Provee:
+%   - Paleta institucional (molTeal, molNaranja, molAmarillo, molMorado).
+%   - Franja vectorial de colores (\molinaBanner) en portada y separadores.
+%   - Ambos logos (\molinaLogos) en portada y separadores.
+%   - Slides de contenido limpias: titulo con regla teal + footline con
+%     logo pequeno, titulo corto y numero de slide.
+% Solo caracteres ASCII.
+
+% Codificacion e idioma. Spanish de babel solo si esta instalado
+% (texlive-lang-spanish); si no, cae a english para no romper el build.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{listings}
+
+% --- Paleta (muestreada del master institucional) -----------------------
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molTealLt}{HTML}{00B0B5}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molRojo}{HTML}{FF5A0C}
+\definecolor{molAmarillo}{HTML}{FEB200}
+\definecolor{molMorado}{HTML}{532587}
+\definecolor{molOro}{HTML}{B8860B}
+\definecolor{molAzul}{HTML}{1F4E9B}
+
+% --- Donde buscar logos y figuras ---------------------------------------
+\graphicspath{{../../tema/}{figuras/}{datos/}}
+
+% --- Colores de elementos Beamer ----------------------------------------
+\setbeamercolor{structure}{fg=molTeal}
+\setbeamercolor{frametitle}{fg=molTeal}
+\setbeamercolor{title}{fg=molMorado}
+\setbeamercolor{itemize item}{fg=molNaranja}
+\setbeamercolor{itemize subitem}{fg=molTeal}
+\setbeamercolor{block title}{bg=molTeal,fg=white}
+\setbeamercolor{block body}{bg=molTeal!8,fg=black}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{navigation symbols}{}
+
+% --- Franja superior vectorial (formas angulares) -----------------------
+% Anclada a las esquinas de la pagina; no depende del ancho exacto.
+\newcommand{\molinaBanner}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \coordinate (O) at (current page.north west);
+    \coordinate (E) at (current page.north east);
+    % Bloque teal principal (izquierda)
+    \fill[molTeal]    ($(O)+(0,0)$) -- ($(O)+(3.7,0)$) -- ($(O)+(3.1,-0.55)$) -- ($(O)+(0,-0.55)$) -- cycle;
+    % Acento teal claro
+    \fill[molTealLt]  ($(O)+(3.7,0)$) -- ($(O)+(4.5,0)$) -- ($(O)+(3.9,-0.55)$) -- ($(O)+(3.1,-0.55)$) -- cycle;
+    % Muesca morada bajo el teal
+    \fill[molMorado]  ($(O)+(0,-0.55)$) -- ($(O)+(0.75,-0.55)$) -- ($(O)+(0,-1.05)$) -- cycle;
+    % Bloque naranja (centro-derecha)
+    \fill[molNaranja] ($(E)+(-4.5,0)$) -- ($(E)+(-7.3,0)$) -- ($(E)+(-7.9,-0.55)$) -- ($(E)+(-5.1,-0.55)$) -- cycle;
+    % Bloque rojo-naranja
+    \fill[molRojo]    ($(E)+(-2.9,0)$) -- ($(E)+(-4.5,0)$) -- ($(E)+(-5.1,-0.55)$) -- ($(E)+(-3.5,-0.55)$) -- cycle;
+    % Bloque amarillo (derecha)
+    \fill[molAmarillo]($(E)+(0,0)$) -- ($(E)+(-2.9,0)$) -- ($(E)+(-3.5,-0.55)$) -- ($(E)+(0,-0.55)$) -- cycle;
+  \end{tikzpicture}%
+}
+
+% --- Logos institucionales en el pie ------------------------------------
+\newcommand{\molinaLogos}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, inner sep=0pt]
+      at ($(current page.south west)+(0.7cm,0.45cm)$)
+      {\includegraphics[height=1.05cm]{logo_mario_molina}};
+    \node[anchor=south east, inner sep=0pt]
+      at ($(current page.south east)+(-0.7cm,0.55cm)$)
+      {\includegraphics[height=0.85cm]{logo_TSJ}};
+  \end{tikzpicture}%
+}
+
+% --- Portada -------------------------------------------------------------
+% Usar dentro de \begin{frame}[plain]\titlepage\end{frame}
+\setbeamertemplate{title page}{%
+  \molinaBanner%
+  \vfill
+  \begin{center}
+    {\usebeamercolor[fg]{title}\Large\bfseries\inserttitle\par}
+    \vspace{0.4em}
+    {\color{molTeal}\large\insertsubtitle\par}
+    \vspace{1.6em}
+    {\small\insertauthor\par}
+    {\scriptsize\insertdate\par}
+  \end{center}
+  \vfill\vspace{1.0cm}%
+  \molinaLogos%
+}
+
+% --- Separador de seccion -----------------------------------------------
+\setbeamertemplate{section page}{%
+  \molinaBanner%
+  \vfill
+  \begin{center}
+    {\color{molTeal}\footnotesize SECCION\par}
+    \vspace{0.3em}
+    {\color{molMorado}\Large\bfseries\insertsectionhead\par}
+  \end{center}
+  \vfill\vspace{1.0cm}%
+  \molinaLogos%
+}
+\AtBeginSection[]{%
+  \begin{frame}[plain]\sectionpage\end{frame}%
+}
+
+% --- Frame de contenido: titulo con regla teal --------------------------
+\setbeamertemplate{headline}{}
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.4em}\hspace*{0.2em}%
+  {\usebeamercolor[fg]{frametitle}\bfseries\insertframetitle}\par
+  \vspace*{0.12em}\hspace*{0.2em}%
+  {\color{molTeal}\rule{0.985\paperwidth}{1.2pt}}%
+}
+
+% --- Pie de slides de contenido -----------------------------------------
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.22\paperwidth,ht=2.6ex,dp=1.1ex,leftskip=.4em]{}%
+      \raisebox{-0.2ex}{\includegraphics[height=1.7ex]{logo_mario_molina}}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.56\paperwidth,ht=2.6ex,dp=1.1ex,center]{}%
+      {\scriptsize\color{molTeal}\insertshorttitle}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.22\paperwidth,ht=2.6ex,dp=1.1ex,rightskip=.4em]{}%
+      \hfill{\scriptsize\color{molTeal}\insertframenumber}%
+    \end{beamercolorbox}%
+  }\vskip2pt%
+}
+
+% --- Estilo para bloques de codigo (listings) ---------------------------
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{molMorado}\bfseries,
+  commentstyle=\color{molTeal}\itshape,
+  stringstyle=\color{molNaranja},
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  rulecolor=\color{molTeal},
+  backgroundcolor=\color{molTeal!5},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  language=Python
+}

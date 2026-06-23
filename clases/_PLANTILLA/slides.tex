@@ -1,0 +1,48 @@
+% Esqueleto de diapositivas. Copialo a clases/XX-tema/slides.tex y
+% COMPILA desde esa carpeta (para que ../../tema/ resuelva), DOS pasadas
+% (los logos usan remember picture de TikZ):
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+% Solo caracteres ASCII (acentos con comandos LaTeX: \'a \~n \c{c}).
+\documentclass[aspectratio=169]{beamer}
+% El tema ya carga inputenc, fontenc y babel (spanish si esta instalado).
+\input{../../tema/molina-tema.tex}
+
+\title{Clase XX -- Tema de la clase}
+\subtitle{Lenguaje de los Datos}
+\author{Instituto Tecnologico Jose Mario Molina Pasquel y Henriquez}
+\date{\today}
+
+\begin{document}
+
+% Portada (plain: sin pie/encabezado, con franja y logos del tema)
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% Agenda
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% Cada \section genera automaticamente un separador con franja + logos
+\section{Primera seccion}
+
+\begin{frame}{Titulo de la slide}
+  Contenido limpio de la slide.
+  \begin{itemize}
+    \item Punto uno
+    \item Punto dos
+  \end{itemize}
+\end{frame}
+
+\section{Resumen}
+
+\begin{frame}{Takeaways}
+  \begin{itemize}
+    \item Idea clave 1
+    \item Idea clave 2
+  \end{itemize}
+\end{frame}
+
+\end{document}
