@@ -1,6 +1,6 @@
 ---
 name: preparar-clase
-description: Prepara los materiales completos de una clase del diplomado "Lenguaje de los Datos" a partir del material fuente en clases/XX-tema/_fuentes/. Genera diapositivas LaTeX/Beamer (slides.tex), un script Python validado (practica.py) y un notebook (practica.ipynb), y actualiza la documentacion. Usar cuando el usuario pida preparar, generar o armar los materiales de una clase.
+description: Prepara los materiales completos de una clase del diplomado "Lenguaje de los Datos" a partir del material fuente en clases/XX-tema/_fuentes/. Genera diapositivas LaTeX/Beamer (slides.tex), un script Python validado (practica.py), un notebook (practica.ipynb) y un examen de opcion multiple en LaTeX (examen.tex), actualiza la documentacion y empaqueta todo en clases/XX-tema.zip. Usar cuando el usuario pida preparar, generar o armar los materiales de una clase.
 argument-hint: "Numero y tema, ej: 'Clase 03 - Limpieza de datos con pandas'"
 ---
 
@@ -27,8 +27,10 @@ clases/XX-tema/
   slides.tex            SALIDA
   practica.py           SALIDA
   practica.ipynb        SALIDA
+  examen.tex            SALIDA (examen de opcion multiple)
   datos/                datasets ya procesados (si aplica)
   figuras/              PNGs generados por practica.py
+clases/XX-tema.zip      SALIDA (paquete final de la clase)
 ```
 
 `XX` = numero con zero-padding (01, 02, ...); `tema` = slug en minusculas con guiones.
@@ -150,12 +152,62 @@ Valida la ejecucion limpia del notebook:
 
 ---
 
-## Fase 4: Documentacion
+## Fase 4: Examen de opcion multiple (LaTeX)
+
+Parte SIEMPRE del esqueleto `clases/_PLANTILLA/examen.tex` copiandolo a
+`clases/XX-tema/examen.tex`. Usa la clase `exam` con la paleta y los logos
+institucionales ya cableados.
+
+Genera entre 8 y 12 preguntas de opcion multiple (4 opciones cada una) que
+cubran los conceptos clave de las slides y la practica. Reglas:
+
+- Cada pregunta es un `\question[1]` con un bloque `\begin{choices}...\end{choices}`.
+- La opcion correcta se marca con `\CorrectChoice`; las demas con `\choice`.
+- Varia la posicion de la respuesta correcta entre preguntas (no siempre la A).
+- Las preguntas deben evaluar comprension, no memorizacion literal de las slides.
+- Actualiza el titulo (`Clase XX: Tema`) y el `\runningheader`.
+- El esqueleto deja `\printanswers` ACTIVO: el PDF resultante es la CLAVE con la
+  respuesta correcta senalada en teal. Para una version del alumno (sin
+  respuestas) basta comentar esa linea; no la comentes salvo que el usuario lo pida.
+- **Solo ASCII** en el .tex (acentos con comandos LaTeX).
+
+Compila para validar **desde la carpeta de la clase** (para que `../../tema/`
+resuelva el logo). Basta UNA pasada (no usa overlays):
+```
+cd clases/XX-tema
+pdflatex -interaction=nonstopmode examen.tex
+```
+Corrige hasta que genere `examen.pdf` sin errores. Verifica visualmente con
+`pdftoppm -png -r 110 examen.pdf rev` que la respuesta correcta quede resaltada.
+
+---
+
+## Fase 5: Documentacion
 
 1. **`CLAUDE.md`**: agrega la clase a la tabla "Clases completadas" (numero,
    tema, fecha).
 2. **`README.md`**: agrega la clase a la tabla "Clases" y una entrada al Change
    Log. El README lo ven los alumnos: NO menciones IA, prompts ni esta herramienta.
+
+---
+
+## Fase 6: Empaquetado en ZIP
+
+Empaqueta los materiales finales de la clase en `clases/XX-tema.zip` para
+entregarlos. Incluye los entregables (slides, practica, examen y datasets/figuras
+generados) y EXCLUYE los auxiliares de LaTeX y el material fuente:
+
+```
+cd clases
+zip -r XX-tema.zip XX-tema \
+  -x 'XX-tema/_fuentes/*' \
+  -x '*.aux' -x '*.log' -x '*.nav' -x '*.out' -x '*.snm' \
+  -x '*.toc' -x '*.vrb' -x '*/.ipynb_checkpoints/*'
+```
+
+El ZIP debe contener `slides.tex`, `slides.pdf`, `practica.py`, `practica.ipynb`,
+`examen.tex`, `examen.pdf` y las carpetas `datos/` y `figuras/`. Confirma el
+contenido con `unzip -l clases/XX-tema.zip` antes de dar por terminada la clase.
 
 ---
 

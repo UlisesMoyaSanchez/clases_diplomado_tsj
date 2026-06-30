@@ -7,9 +7,10 @@ diplomado "Lenguaje de los Datos: Gobernanza, Visualizacion, Cultura e IA Genera
 
 Comando: `/preparar-clase Clase XX - <tema>`
 
-El skill esta en `.claude/skills/preparar-clase/SKILL.md` y orquesta 4 fases:
+El skill esta en `.claude/skills/preparar-clase/SKILL.md` y orquesta 7 fases:
 0. Ingesta del material fuente, 1. slides.tex (Beamer), 2. practica.py validado,
-3. practica.ipynb, 4. documentacion.
+3. practica.ipynb, 4. examen.tex (opcion multiple, clase `exam`), 5. documentacion,
+6. empaquetado en `clases/XX-tema.zip`.
 
 ## Convencion de carpetas
 
@@ -25,7 +26,9 @@ clases/XX-tema/
   slides.tex           SALIDA
   practica.py          SALIDA (formato jupytext percent)
   practica.ipynb       SALIDA
+  examen.tex           SALIDA (examen de opcion multiple, clase `exam`)
   datos/  figuras/     datasets procesados y graficas generadas
+clases/XX-tema.zip     SALIDA (paquete final con los entregables de la clase)
 ```
 
 `XX` = numero con zero-padding; `tema` = slug en minusculas con guiones.
@@ -74,7 +77,14 @@ pdflatex -shell-escape -interaction=nonstopmode slides.tex
 python clases/XX-tema/practica.py
 jupytext --to notebook clases/XX-tema/practica.py
 jupyter nbconvert --to notebook --execute --inplace clases/XX-tema/practica.ipynb
+pdflatex -interaction=nonstopmode examen.tex   # desde clases/XX-tema/
 ```
+
+El examen usa la clase `exam` (plantilla en `clases/_PLANTILLA/examen.tex`):
+`\CorrectChoice` marca la respuesta correcta y `\printanswers` (activo por
+defecto) genera la CLAVE con la respuesta resaltada; comentalo para la version
+del alumno. El paquete final se arma con `zip` desde `clases/` excluyendo
+`_fuentes/` y los auxiliares de LaTeX (ver Fase 6 del skill).
 
 ## Clases completadas
 
