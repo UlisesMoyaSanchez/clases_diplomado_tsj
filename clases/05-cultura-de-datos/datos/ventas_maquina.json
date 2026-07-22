@@ -1,0 +1,28 @@
+{
+  "datos": [
+    {
+      "region": "GDL",
+      "ventas": 180000,
+      "unidad": "MXN",
+      "periodo": "2026-Q1"
+    },
+    {
+      "region": "CDMX",
+      "ventas": 210000,
+      "unidad": "MXN",
+      "periodo": "2026-Q1"
+    },
+    {
+      "region": "MTY",
+      "ventas": 320000,
+      "unidad": "MXN",
+      "periodo": "2026-Q1"
+    }
+  ],
+  "esquema": {
+    "region": "str (codigo de 3-4 letras)",
+    "ventas": "int (unidad ver campo 'unidad')",
+    "unidad": "str (ISO 4217)",
+    "periodo": "str (ISO 8601, YYYY-Qn)"
+  }
+}

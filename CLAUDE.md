@@ -95,3 +95,4 @@ del alumno. El paquete final se arma con `zip` desde `clases/` excluyendo
 | 02b | Datos para humanos vs datos para maquinas (AI for Data, Data for AI, agentes LLM) | 2026-06-29 |
 | 03 | Ciclo de vida de los datos (Parte I): captura y almacenamiento | 2026-06-29 |
 | 04 | Ciclo de vida de los datos (Parte II): seguridad, analisis y archivado | 2026-06-29 |
+| 05 | Cultura de datos: gramatica compartida, correlacion vs causalidad y como no mentir con estadisticas | 2026-07-22 |

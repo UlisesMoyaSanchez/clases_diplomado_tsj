@@ -15,6 +15,7 @@ ejecutable y un examen de opcion multiple, organizados en `clases/XX-tema/`.
 | 02b | Datos para humanos vs datos para maquinas | [carpeta](clases/02b-datos-humanos-vs-maquinas/) |
 | 03 | Ciclo de vida de los datos (Parte I): captura y almacenamiento | [carpeta](clases/03-ciclo-vida-i/) |
 | 04 | Ciclo de vida de los datos (Parte II): seguridad, analisis y archivado | [carpeta](clases/04-ciclo-vida-ii/) |
+| 05 | Cultura de datos | [carpeta](clases/05-cultura-de-datos/) |
 
 ## Estructura
 
@@ -31,6 +32,15 @@ clases/
 
 ## Change Log
 
+- Clase 05 "Cultura de datos": diapositivas, practica, notebook y examen.
+  Gramatica de datos compartida entre personas y sistemas (con ejemplos de
+  datos para humanos vs para maquinas), correlacion vs causalidad (helados y
+  ahogamientos, ciguenas y natalidad, correlaciones espurias) y trampas
+  estadisticas clasicas (muestra sesgada, promedio bien elegido, grafica con
+  eje truncado, pictogramas enganosos, cifras semi-adjuntas). La practica
+  contrasta representaciones de un mismo dato, simula variables con una causa
+  comun y compara un eje honesto contra uno truncado, y la media contra la
+  mediana en salarios con un valor atipico.
 - Clase 02b "Datos para humanos vs datos para maquinas": diapositivas, practica,
   notebook y examen. Diferencia entre datos para consumo humano (visualizacion,
   narrativa) y para maquinas (estructura, metadatos, contratos); los marcos AI

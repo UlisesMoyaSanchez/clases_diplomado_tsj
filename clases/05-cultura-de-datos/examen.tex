@@ -1,0 +1,181 @@
+% Examen Clase 05 -- Cultura de datos.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva el logo):
+%   pdflatex -interaction=nonstopmode examen.tex
+% La clase 'exam' marca la respuesta correcta con \CorrectChoice.
+% Con \printanswers activo se genera la CLAVE (respuesta correcta senalada);
+% comentalo para producir la version limpia del alumno.
+% Solo caracteres ASCII (acentos con comandos: \'a \~n \c{c}).
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Spanish solo si esta instalado (texlive-lang-spanish); si no, cae a english.
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Logo institucional y figuras (mismas rutas que las slides)
+\graphicspath{{../../tema/}{figuras/}}
+
+% Paleta institucional (muestreada del master)
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molMorado}{HTML}{532587}
+
+% Resalta en teal y negrita la opcion correcta cuando se imprimen respuestas
+\CorrectChoiceEmphasis{\color{molTeal}\bfseries}
+
+% Etiqueta de puntos en espanol (la clase 'exam' la pone en ingles por defecto)
+\pointpoints{punto}{puntos}
+
+% CLAVE: muestra la respuesta correcta. Comenta esta linea para la version
+% del alumno (sin respuestas senaladas).
+\printanswers
+
+\pagestyle{headandfoot}
+\firstpageheader
+  {\includegraphics[height=1.0cm]{logo_mario_molina}}
+  {}
+  {\includegraphics[height=0.8cm]{logo_TSJ}}
+\runningheader{Clase 05 -- Cultura de datos}{Examen}{Pagina \thepage}
+\firstpagefooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+\runningfooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+
+\begin{document}
+
+\begin{center}
+  {\color{molMorado}\Large\bfseries Examen -- Clase 05: Cultura de datos}\\[3pt]
+  {\color{molTeal}\large Diplomado Lenguaje de los Datos}
+\end{center}
+
+\vspace{6pt}
+\noindent Nombre: \rule{6cm}{0.4pt} \hfill Fecha: \rule{3cm}{0.4pt}
+
+\vspace{6pt}
+\noindent\textbf{Instrucciones:} selecciona la \'unica opci\'on correcta en cada
+pregunta.
+
+\vspace{4pt}
+\hrule
+\vspace{8pt}
+
+\begin{questions}
+
+\question[1] ?`Cual de las siguientes describe mejor la \textbf{cultura de
+datos} de una organizacion?
+\begin{choices}
+  \choice Tener un dashboard moderno y una base de datos en la nube.
+  \CorrectChoice El conjunto de habitos, valores y habilidades con los que se
+    crean, comparten y usan los datos para decidir.
+  \choice El numero de modelos de IA que la organizacion tiene en produccion.
+  \choice La cantidad de datos que se almacenan por dia.
+\end{choices}
+
+\question[1] Dos equipos de una empresa nombran y formatean sus columnas de
+fecha de forma distinta (``01/2026'', ``2026-01-15'', ``enero 2026'') en la
+misma tabla compartida. Esto es sintoma de:
+\begin{choices}
+  \choice Un problema de almacenamiento en la nube.
+  \CorrectChoice Falta de una gramatica de datos compartida.
+  \choice Una correlacion espuria.
+  \choice Un pictograma enganoso.
+\end{choices}
+
+\question[1] Una gramatica de datos deficiente (columnas ambiguas, formatos
+inconsistentes, texto libre mezclado con codigos):
+\begin{choices}
+  \choice Solo afecta a los sistemas automaticos, no a las personas.
+  \choice Solo afecta la lectura humana, no el procesamiento automatico.
+  \CorrectChoice Rompe tanto la lectura humana como el procesamiento
+    automatico.
+  \choice Mejora la flexibilidad del analisis de datos.
+\end{choices}
+
+\question[1] Que dos variables \textbf{correlacionen} fuertemente significa
+que:
+\begin{choices}
+  \choice Una siempre causa a la otra.
+  \choice Los datos fueron manipulados.
+  \CorrectChoice Se mueven juntas, pero eso puede deberse a azar, a una
+    variable confusora o a causalidad inversa, no necesariamente a que una
+    cause a la otra.
+  \choice No se pueden graficar juntas.
+\end{choices}
+
+\question[1] En el ejemplo de las ventas de helado y los ahogamientos, ambas
+variables suben en verano porque:
+\begin{choices}
+  \choice El helado causa directamente los ahogamientos.
+  \choice Los ahogamientos causan que se vendan mas helados.
+  \CorrectChoice Existe una variable confusora (la temperatura) que explica a
+    ambas.
+  \choice Es una coincidencia sin ninguna explicacion posible.
+\end{choices}
+
+\question[1] Las ``correlaciones espurias'' documentadas por Tyler Vigen
+(por ejemplo, consumo de queso mozzarella vs. doctorados en ingenieria
+civil) ilustran que:
+\begin{choices}
+  \choice Toda correlacion alta implica una relacion causal real.
+  \CorrectChoice Con suficientes series de tiempo, aparecen correlaciones
+    altas entre variables sin ningun vinculo causal.
+  \choice Las variables confusoras nunca existen en series de tiempo.
+  \choice El queso mozzarella influye en la educacion superior.
+\end{choices}
+
+\question[1] Para establecer una relacion \textbf{causal} de forma confiable,
+en lugar de solo observar correlacion en datos historicos, se recomienda:
+\begin{choices}
+  \choice Aumentar el numero de decimales al reportar la correlacion.
+  \CorrectChoice Disenar experimentos controlados/aleatorizados o aplicar
+    metodos de inferencia causal.
+  \choice Usar siempre la variable con mayor varianza.
+  \choice Eliminar del analisis las variables con correlacion baja.
+\end{choices}
+
+\question[1] En el libro \emph{Como mentir con estadisticas} (Darrell Huff),
+la ``muestra con sesgo incorporado'' se refiere a:
+\begin{choices}
+  \choice Un error de redondeo en los calculos estadisticos.
+  \CorrectChoice Una muestra que no representa a toda la poblacion (por
+    ejemplo, solo responde cierto grupo socioeconomico) pero se presenta
+    como si la representara.
+  \choice Un experimento controlado con grupo de control.
+  \choice Una grafica con el eje Y truncado.
+\end{choices}
+
+\question[1] Una empresa reporta un ``salario promedio'' (media) mucho mayor
+al que percibe la mayoria de sus empleados, porque unos pocos directivos
+ganan sueldos muy altos. ?`Que medida describiria mejor al empleado tipico?
+\begin{choices}
+  \choice La misma media, sin cambios.
+  \choice La desviacion estandar.
+  \CorrectChoice La mediana.
+  \choice El valor maximo.
+\end{choices}
+
+\question[1] Una grafica de barras que trunca el eje Y (por ejemplo,
+empezando en 98 en vez de 0) para mostrar un crecimiento real de 3\% es un
+ejemplo de:
+\begin{choices}
+  \choice Un pictograma enganoso.
+  \choice Cifras semi-adjuntas.
+  \CorrectChoice La ``grafica que impresiona'' (gee-whiz graph).
+  \choice La muestra con sesgo incorporado.
+\end{choices}
+
+\question[1] Un anuncio dice ``9 de cada 10 dentistas recomiendan...'' sin
+aclarar cual fue la pregunta exacta ni el tamano de la muestra. Esto es un
+ejemplo de:
+\begin{choices}
+  \CorrectChoice Cifras semi-adjuntas (responder una pregunta distinta a la
+    que se hizo).
+  \choice El promedio bien elegido.
+  \choice Correlacion espuria.
+  \choice Un pictograma enganoso.
+\end{choices}
+
+\end{questions}
+
+\end{document}
