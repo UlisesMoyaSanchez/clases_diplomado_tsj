@@ -16,6 +16,7 @@ ejecutable y un examen de opcion multiple, organizados en `clases/XX-tema/`.
 | 03 | Ciclo de vida de los datos (Parte I): captura y almacenamiento | [carpeta](clases/03-ciclo-vida-i/) |
 | 04 | Ciclo de vida de los datos (Parte II): seguridad, analisis y archivado | [carpeta](clases/04-ciclo-vida-ii/) |
 | 05 | Cultura de datos | [carpeta](clases/05-cultura-de-datos/) |
+| 06 | Gobernanza de datos | [carpeta](clases/06-gobernanza-de-datos/) |
 
 ## Estructura
 
@@ -32,6 +33,16 @@ clases/
 
 ## Change Log
 
+- Clase 06 "Gobernanza de datos": diapositivas, practica, notebook y examen.
+  Pilares de la gobernanza (propiedad de los datos, calidad, seguridad y
+  control de acceso, catalogo y linaje, cumplimiento normativo), casos reales
+  donde fallo por falta de gobernanza (Equifax, Cambridge Analytica, Danske
+  Bank, NHS National Programme for IT, Uber) y tecnicas para evaluar su
+  exito (dimensiones de calidad, cobertura de stewardship, auditorias de
+  acceso, modelos de madurez, costo de la mala calidad de datos). La
+  practica arma un catalogo con cobertura de stewardship, mide calidad de
+  datos por columna, audita un log de accesos y combina todo en un
+  scorecard de madurez.
 - Clase 05 "Cultura de datos": diapositivas, practica, notebook y examen.
   Gramatica de datos compartida entre personas y sistemas (con ejemplos de
   datos para humanos vs para maquinas), correlacion vs causalidad (helados y

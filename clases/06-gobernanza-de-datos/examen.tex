@@ -1,0 +1,190 @@
+% Examen Clase 06 -- Gobernanza de datos.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva el logo):
+%   pdflatex -interaction=nonstopmode examen.tex
+% La clase 'exam' marca la respuesta correcta con \CorrectChoice.
+% Con \printanswers activo se genera la CLAVE (respuesta correcta senalada);
+% comentalo para producir la version limpia del alumno.
+% Solo caracteres ASCII (acentos con comandos: \'a \~n \c{c}).
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Spanish solo si esta instalado (texlive-lang-spanish); si no, cae a english.
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Logo institucional y figuras (mismas rutas que las slides)
+\graphicspath{{../../tema/}{figuras/}}
+
+% Paleta institucional (muestreada del master)
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molMorado}{HTML}{532587}
+
+% Resalta en teal y negrita la opcion correcta cuando se imprimen respuestas
+\CorrectChoiceEmphasis{\color{molTeal}\bfseries}
+
+% Etiqueta de puntos en espanol (la clase 'exam' la pone en ingles por defecto)
+\pointpoints{punto}{puntos}
+
+% CLAVE: muestra la respuesta correcta. Comenta esta linea para la version
+% del alumno (sin respuestas senaladas).
+\printanswers
+
+\pagestyle{headandfoot}
+\firstpageheader
+  {\includegraphics[height=1.0cm]{logo_mario_molina}}
+  {}
+  {\includegraphics[height=0.8cm]{logo_TSJ}}
+\runningheader{Clase 06 -- Gobernanza de datos}{Examen}{Pagina \thepage}
+\firstpagefooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+\runningfooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+
+\begin{document}
+
+\begin{center}
+  {\color{molMorado}\Large\bfseries Examen -- Clase 06: Gobernanza de datos}\\[3pt]
+  {\color{molTeal}\large Diplomado Lenguaje de los Datos}
+\end{center}
+
+\vspace{6pt}
+\noindent Nombre: \rule{6cm}{0.4pt} \hfill Fecha: \rule{3cm}{0.4pt}
+
+\vspace{6pt}
+\noindent\textbf{Instrucciones:} selecciona la \'unica opci\'on correcta en cada
+pregunta.
+
+\vspace{4pt}
+\hrule
+\vspace{8pt}
+
+\begin{questions}
+
+\question[1] ?`Cual de las siguientes describe mejor la \textbf{gobernanza de
+datos} de una organizacion?
+\begin{choices}
+  \choice La cantidad de datos que se almacenan por dia.
+  \choice El numero de dashboards que usa la organizacion.
+  \CorrectChoice El conjunto de politicas, roles, procesos y estandares que
+    garantizan que los datos sean confiables, seguros, consistentes y
+    usables.
+  \choice El costo total de la infraestructura en la nube.
+\end{choices}
+
+\question[1] En el caso Equifax (2017), la brecha que expuso datos de 147
+millones de personas ocurrio principalmente porque:
+\begin{choices}
+  \choice No existia ninguna base de datos con informacion de clientes.
+  \CorrectChoice Una vulnerabilidad conocida no se parcho a tiempo porque
+    nadie tenia claro quien era el responsable de hacerlo.
+  \choice Los datos estaban cifrados con un algoritmo obsoleto.
+  \choice La empresa no contaba con ningun sistema de monitoreo de red.
+\end{choices}
+
+\question[1] El caso Cambridge Analytica / Facebook (2018) es un ejemplo de
+fallo de gobernanza relacionado con:
+\begin{choices}
+  \choice Falta de espacio de almacenamiento.
+  \CorrectChoice Falta de control sobre como aplicaciones de terceros
+    accedian y reutilizaban datos de usuarios fuera del consentimiento
+    original.
+  \choice Un error de redondeo en un reporte financiero.
+  \choice Un pictograma enganoso en una grafica publica.
+\end{choices}
+
+\question[1] En el escandalo de lavado de dinero de Danske Bank (sucursal de
+Estonia), la causa raiz de gobernanza fue:
+\begin{choices}
+  \choice Un exceso de personal dedicado a monitoreo AML.
+  \choice Una politica de retencion de datos demasiado estricta.
+  \CorrectChoice Sistemas de monitoreo fragmentados entre sucursales, sin
+    estandares comunes de datos.
+  \choice La falta de un logo institucional en los reportes.
+\end{choices}
+
+\question[1] El fracaso del NHS National Programme for IT (Reino Unido)
+ilustra que la gobernanza de datos:
+\begin{choices}
+  \choice Solo aplica a empresas privadas, no a programas publicos.
+  \CorrectChoice Tambien puede fallar a nivel de politica publica, cuando
+    distintas instituciones no comparten estandares de datos ni una
+    gobernanza unificada.
+  \choice Es innecesaria si el presupuesto del proyecto es grande.
+  \choice Se resuelve unicamente con mas hardware.
+\end{choices}
+
+\question[1] En el caso Uber ``God View'', el problema principal de
+gobernanza fue:
+\begin{choices}
+  \choice Falta de capacidad de almacenamiento para los datos de ubicacion.
+  \CorrectChoice Ausencia de control de acceso basado en roles (RBAC) y de
+    auditoria sobre el uso de un dato sensible.
+  \choice Un error de precision en el GPS de la aplicacion.
+  \choice La app no cifraba las contrasenas de los usuarios.
+\end{choices}
+
+\question[1] ?`Que patron comparten los casos Equifax, Cambridge Analytica,
+Danske Bank, NHS y Uber ``God View''?
+\begin{choices}
+  \choice Todos ocurrieron por falta de presupuesto tecnologico.
+  \choice Todos se debieron a errores de programacion en la interfaz.
+  \CorrectChoice En todos falto claridad sobre quien es dueno de los datos,
+    quien puede acceder y como se audita su uso.
+  \choice Todos fueron causados por proveedores externos de hardware.
+\end{choices}
+
+\question[1] La ``cobertura de stewardship'' de un catalogo de datos mide:
+\begin{choices}
+  \choice El numero total de tablas que tiene la organizacion.
+  \CorrectChoice El porcentaje de activos de datos criticos que tienen un
+    dueno (owner) y un custodio (steward) asignados formalmente.
+  \choice El tiempo que tarda un reporte en generarse.
+  \choice El numero de graficas que produce un dashboard.
+\end{choices}
+
+\question[1] Segun el marco DAMA-DMBOK, que un mismo dato se vea igual en
+todos los sistemas de la organizacion (mismo formato de fecha, mismas
+unidades) corresponde a la dimension de calidad de datos llamada:
+\begin{choices}
+  \choice Completitud.
+  \choice Oportunidad (timeliness).
+  \CorrectChoice Consistencia.
+  \choice Unicidad.
+\end{choices}
+
+\question[1] Una auditoria de control de acceso que revisa si los
+privilegios de ex-empleados fueron revocados a tiempo esta aplicando el
+principio de:
+\begin{choices}
+  \choice Redundancia de datos.
+  \CorrectChoice Minimo privilegio.
+  \choice Maxima disponibilidad.
+  \choice Normalizacion de esquemas.
+\end{choices}
+
+\question[1] Un modelo de madurez de gobernanza de datos (como DCAM o el de
+Gartner) sirve principalmente para:
+\begin{choices}
+  \choice Calcular el costo exacto de la infraestructura en la nube.
+  \CorrectChoice Ubicar a la organizacion en un nivel (por ejemplo, inicial,
+    gestionado, definido, optimizado) mediante un cuestionario o scorecard.
+  \choice Reemplazar la necesidad de asignar duenos de datos.
+  \choice Determinar el salario promedio de los analistas de datos.
+\end{choices}
+
+\question[1] El ``costo de la mala calidad de datos'' (COPQ, cost of poor
+quality) se usa como metrica de gobernanza porque:
+\begin{choices}
+  \choice Mide unicamente el precio de licencias de software.
+  \CorrectChoice Estima cuanto le cuesta a la organizacion la mala calidad
+    de datos (retrabajos, decisiones erroneas, multas), y su reduccion en
+    el tiempo indica exito de la gobernanza.
+  \choice Es un sinonimo directo de la cobertura de stewardship.
+  \choice Solo aplica a organizaciones del sector publico.
+\end{choices}
+
+\end{questions}
+
+\end{document}

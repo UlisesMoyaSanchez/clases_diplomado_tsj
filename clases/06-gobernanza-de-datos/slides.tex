@@ -1,0 +1,247 @@
+% Clase 06 -- Gobernanza de datos.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva), DOS pasadas:
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+% Solo caracteres ASCII (acentos con comandos LaTeX: \'a \~n \c{c}).
+\documentclass[aspectratio=169]{beamer}
+% El tema ya carga inputenc, fontenc y babel (spanish si esta instalado).
+\input{../../tema/molina-tema.tex}
+
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,backgrounds}
+
+\title{Clase 06 -- Gobernanza de datos}
+\subtitle{Politicas, casos de fallo y como medir si funciona}
+\author{Instituto Tecnologico Jose Mario Molina Pasquel y Henriquez}
+\date{\today}
+
+\begin{document}
+
+% ----------------------------------------------------------------------
+% Portada
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Agenda
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% ======================================================================
+\section{Que es gobernanza de datos}
+
+\begin{frame}{Mas alla de tener los datos}
+  Tener datos no es lo mismo que \textbf{gobernarlos}.
+  \begin{block}{Gobernanza de datos}
+    El conjunto de \textbf{politicas, roles, procesos y estandares} que
+    garantizan que los datos de una organizacion sean confiables, seguros,
+    consistentes y usables: quien es dueno, quien puede acceder, que calidad
+    deben cumplir y como se auditan.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Los pilares de la gobernanza}
+  \begin{itemize}
+    \item \textbf{Propiedad de los datos}: data ownership y data stewardship
+          -alguien responde por cada activo de datos.
+    \item \textbf{Calidad de datos}: reglas explicitas sobre que hace
+          confiable a un dato.
+    \item \textbf{Seguridad y control de acceso}: quien puede ver o modificar
+          que, y bajo que rol.
+    \item \textbf{Catalogo y linaje}: metadatos que documentan de donde viene
+          un dato y como se transformo.
+    \item \textbf{Cumplimiento normativo}: GDPR, LFPDPPP (Mexico) y otras
+          regulaciones.
+  \end{itemize}
+  \vspace{0.2em}
+  Estos pilares se apoyan en el \textbf{ciclo de vida de los datos} que ya
+  vimos (Clases 03-04): captura, almacenamiento, acceso, analisis y
+  archivado/eliminacion.
+\end{frame}
+
+% ======================================================================
+\section{Casos donde fallo la gobernanza}
+
+\begin{frame}{Cuando falta gobernanza, algo se rompe}
+  En los siguientes casos el problema \textbf{no fue} falta de tecnologia:
+  fue falta de reglas claras sobre quien es dueno, quien puede acceder y como
+  se audita.
+\end{frame}
+
+\begin{frame}{Equifax (2017)}
+  \begin{block}{El caso}
+    Brecha que expuso datos personales de \textbf{147 millones} de personas.
+  \end{block}
+  Una vulnerabilidad conocida en un componente de software no se parcho a
+  tiempo porque \textbf{nadie tenia claro} quien era el responsable de
+  hacerlo.
+  \vspace{0.2em}\\
+  \textit{Fallo de gobernanza:} ausencia de ownership sobre la gestion de
+  vulnerabilidades.
+\end{frame}
+
+\begin{frame}{Cambridge Analytica / Facebook (2018)}
+  \begin{block}{El caso}
+    Datos de \textbf{~87 millones} de usuarios recolectados por una app y
+    reutilizados fuera del consentimiento original.
+  \end{block}
+  No existian controles suficientes sobre como las aplicaciones de terceros
+  accedian y reutilizaban los datos de los usuarios.
+  \vspace{0.2em}\\
+  \textit{Fallo de gobernanza:} consentimiento y acceso de terceros sin
+  supervision.
+\end{frame}
+
+\begin{frame}{Danske Bank -- sucursal de Estonia (2007-2015)}
+  \begin{block}{El caso}
+    Cerca de \textbf{200 mil millones de euros} en transacciones sospechosas
+    no fueron detectadas a tiempo.
+  \end{block}
+  Los sistemas de monitoreo contra lavado de dinero (AML) estaban
+  fragmentados, sin estandares comunes de datos entre sucursales.
+  \vspace{0.2em}\\
+  \textit{Fallo de gobernanza:} falta de integracion y estandares centrales
+  de datos.
+\end{frame}
+
+\begin{frame}{NHS National Programme for IT (Reino Unido, 2002-2011)}
+  \begin{block}{El caso}
+    Programa de historia clinica electronica nacional, cancelado tras gastar
+    cerca de \textbf{12 mil millones de libras}.
+  \end{block}
+  Los hospitales no compartian estandares de datos, y no hubo una gobernanza
+  unificada a nivel del programa completo.
+  \vspace{0.2em}\\
+  \textit{Fallo de gobernanza:} a nivel de politica publica, no solo
+  organizacional.
+\end{frame}
+
+\begin{frame}{Uber ``God View'' (2014-2016)}
+  \begin{block}{El caso}
+    Empleados con acceso sin restriccion a la ubicacion en tiempo real de
+    cualquier usuario de la app.
+  \end{block}
+  El acceso se uso para rastrear a periodistas y a parejas sentimentales,
+  sin ningun control de rol ni auditoria de uso.
+  \vspace{0.2em}\\
+  \textit{Fallo de gobernanza:} ausencia de control de acceso basado en
+  roles (RBAC) y de auditoria.
+\end{frame}
+
+\begin{frame}{El patron detras de los 5 casos}
+  \begin{itemize}
+    \item Equifax: nadie era \textbf{dueno} de parchar la vulnerabilidad.
+    \item Cambridge Analytica: nadie controlaba el \textbf{acceso} de
+          terceros.
+    \item Danske Bank: no habia \textbf{estandares comunes} entre sistemas.
+    \item NHS: no habia \textbf{gobernanza unificada} del programa.
+    \item Uber: no habia \textbf{control de roles} ni auditoria.
+  \end{itemize}
+  \begin{block}{Conclusion}
+    El nucleo de la gobernanza de datos: reglas claras sobre \textbf{quien es
+    dueno}, \textbf{quien puede acceder} y \textbf{como se audita}.
+  \end{block}
+\end{frame}
+
+% ======================================================================
+\section{Como medir si la gobernanza funciona}
+
+\begin{frame}{No basta con tener politicas escritas}
+  Una politica de gobernanza sin forma de medirla es solo una intencion.
+  Necesitamos \textbf{tecnicas de evaluacion} concretas.
+\end{frame}
+
+\begin{frame}{Calidad de datos (DAMA-DMBOK)}
+  Cinco dimensiones medibles como \% de registros que las cumplen:
+  \begin{itemize}
+    \item \textbf{Completitud}: ?`faltan valores donde no deberian?
+    \item \textbf{Exactitud}: ?`el valor refleja la realidad?
+    \item \textbf{Consistencia}: ?`el mismo dato se ve igual en todos lados?
+    \item \textbf{Oportunidad} (timeliness): ?`el dato esta actualizado?
+    \item \textbf{Unicidad}: ?`hay registros duplicados?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cobertura de stewardship, catalogo y linaje}
+  \begin{itemize}
+    \item \textbf{Cobertura de stewardship}: \% de activos de datos criticos
+          con un \textbf{dueno} (owner) y un \textbf{custodio} (steward)
+          asignados formalmente.
+    \item \textbf{Cobertura de catalogo y linaje}: \% de datasets
+          documentados en un catalogo, con su origen, transformaciones y
+          significado (diccionario de datos).
+  \end{itemize}
+  \vspace{0.2em}
+  Sin esto, ningun incidente (como Equifax) tiene un responsable claro que
+  reaccione a tiempo.
+\end{frame}
+
+\begin{frame}{Incidentes y control de acceso}
+  \begin{itemize}
+    \item \textbf{Metricas de incidentes}: numero de incidentes de seguridad
+          o calidad por periodo, tiempo medio de deteccion (MTTD) y de
+          remediacion (MTTR).
+    \item \textbf{Auditorias de acceso}: revisiones periodicas de
+          privilegios (principio de minimo privilegio) y \% de accesos
+          revocados a tiempo al cambiar de rol o salir de la organizacion.
+  \end{itemize}
+  \vspace{0.2em}
+  Esto es exactamente lo que hubiera prevenido el caso Uber ``God View''.
+\end{frame}
+
+\begin{frame}{Cumplimiento y madurez}
+  \begin{itemize}
+    \item \textbf{Cumplimiento normativo}: resultados de auditorias
+          regulatorias (GDPR, LFPDPPP), multas evitadas, certificaciones
+          (ISO/IEC 38505, ISO 8000).
+    \item \textbf{Modelos de madurez}: por ejemplo \textbf{DCAM} (Data
+          Management Capability Assessment Model) o el modelo de madurez de
+          Gartner, que ubican a la organizacion en niveles -inicial,
+          gestionado, definido, optimizado- mediante un cuestionario o
+          scorecard.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{El costo de no gobernar: COPQ}
+  \begin{block}{Costo de la mala calidad de datos (COPQ)}
+    Cost of Poor Quality: estimar cuanto cuesta a la organizacion la mala
+    calidad de datos -retrabajos, decisiones erroneas, multas- como metrica
+    indirecta de exito cuando ese costo disminuye con el tiempo.
+  \end{block}
+  Ninguna tecnica sola basta: se recomienda un \textbf{scorecard} que combine
+  unas cuantas metricas de cada categoria y se revise periodicamente
+  (trimestral o anual).
+\end{frame}
+
+% ======================================================================
+\section{Resumen}
+
+\begin{frame}{Takeaways}
+  \begin{itemize}
+    \item Gobernanza de datos = \textbf{politicas, roles, procesos y
+          estandares} para datos confiables, seguros y usables.
+    \item Cinco pilares: \textbf{ownership}, calidad, seguridad/acceso,
+          catalogo/linaje, cumplimiento normativo.
+    \item Equifax, Cambridge Analytica, Danske Bank, NHS y Uber fallaron por
+          \textbf{falta de reglas}, no por falta de tecnologia.
+    \item Se mide con: dimensiones de \textbf{calidad DAMA-DMBOK}, cobertura
+          de stewardship y catalogo, metricas de \textbf{incidentes} y
+          \textbf{acceso}, cumplimiento normativo, modelos de
+          \textbf{madurez} y el \textbf{costo de no gobernar} (COPQ).
+    \item Sin medicion, una politica de gobernanza es solo una intencion.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \molinaBanner
+  \vfill
+  \begin{center}
+    {\color{molMorado}\Large\bfseries Gracias}\\[0.4em]
+    {\color{molTeal} Datos gobernados: dueno claro, acceso claro, medicion clara}
+  \end{center}
+  \vfill\vspace{1.0cm}
+  \molinaLogos
+\end{frame}
+
+\end{document}

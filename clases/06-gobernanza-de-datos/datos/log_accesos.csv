@@ -1,0 +1,7 @@
+usuario,rol,recurso,fecha_baja,acceso_activo
+ana,soporte,ubicacion_tiempo_real,,True
+luis,ventas,crm,,True
+marta,ex_empleado,ubicacion_tiempo_real,2026-03-01,True
+jose,operaciones,inventario,,True
+rita,ex_empleado,logs_acceso,2026-05-15,True
+carlos,administrador,ubicacion_tiempo_real,,True
