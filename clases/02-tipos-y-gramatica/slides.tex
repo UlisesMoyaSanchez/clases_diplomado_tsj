@@ -1,0 +1,390 @@
+% Clase 02 -- Tipos de datos y gramatica de los datos.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva), DOS pasadas:
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+% Solo caracteres ASCII (acentos con comandos LaTeX: \'a \~n \c{c}).
+\documentclass[aspectratio=169]{beamer}
+% El tema ya carga inputenc, fontenc y babel (spanish si esta instalado).
+\input{../../tema/molina-tema.tex}
+
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,backgrounds,matrix}
+
+\title{Clase 02 -- Tipos de datos y gram\'atica de los datos}
+\subtitle{Lenguaje de los Datos: Gobernanza, Visualizaci\'on, Cultura e IA Generativa}
+\author{Instituto Tecnol\'ogico Jos\'e Mario Molina Pasquel y Henr\'iquez}
+\date{\today}
+
+\begin{document}
+
+% ----------------------------------------------------------------------
+% Portada
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Agenda
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% ======================================================================
+\section{Tipos de datos por su naturaleza}
+
+\begin{frame}[fragile]{?`De qu\'e tipo es un dato?}
+  \begin{center}
+  \begin{tikzpicture}[
+      font=\footnotesize,
+      root/.style={rounded corners, draw=molTeal, very thick, fill=molTeal!12,
+                   font=\small\bfseries, minimum width=2.4cm, minimum height=0.8cm},
+      cat/.style={rounded corners, draw=#1, very thick, fill=#1!15,
+                  font=\footnotesize\bfseries, align=center, minimum width=2.4cm,
+                  minimum height=0.8cm},
+      leaf/.style={align=center, font=\scriptsize, text=#1},
+      every node/.style={align=center}]
+    \node[root] (d) at (5,4.4) {Dato};
+    \node[cat=molMorado]  (cl) at (2.2,3.0) {Cualitativo\\(categorico)};
+    \node[cat=molNaranja] (cn) at (7.8,3.0) {Cuantitativo\\(numerico)};
+    \draw[molTeal,thick] (d)--(cl);  \draw[molTeal,thick] (d)--(cn);
+    \node[cat=molMorado, minimum width=1.8cm] (nom) at (0.6,1.5) {Nominal};
+    \node[cat=molMorado, minimum width=1.8cm] (ord) at (3.4,1.5) {Ordinal};
+    \node[cat=molNaranja, minimum width=1.8cm](dis) at (6.4,1.5) {Discreto};
+    \node[cat=molNaranja, minimum width=1.8cm](con) at (9.2,1.5) {Continuo};
+    \draw[molMorado,thick](cl)--(nom); \draw[molMorado,thick](cl)--(ord);
+    \draw[molNaranja,thick](cn)--(dis); \draw[molNaranja,thick](cn)--(con);
+    \node[leaf=molMorado] at (0.6,0.7) {color, ciudad};
+    \node[leaf=molMorado] at (3.4,0.7) {bajo<medio<alto};
+    \node[leaf=molNaranja] at (6.4,0.7) {num. de hijos};
+    \node[leaf=molNaranja] at (9.2,0.7) {peso, altura};
+  \end{tikzpicture}
+  \end{center}
+  El \textbf{tipo} decide qu\'e operaciones y graficas tienen sentido.
+\end{frame}
+
+\begin{frame}{Datos cualitativos (categoricos)}
+  \begin{itemize}
+    \item \textbf{Nominal}: categorias sin orden. Solo se pueden comparar por
+          igualdad. Ej.: color de ojos, pais, tipo de sangre.
+    \item \textbf{Ordinal}: categorias con un orden, pero sin distancia definida.
+          Ej.: nivel educativo, satisfaccion (bajo/medio/alto), severidad.
+    \item \textbf{Binario / booleano}: caso especial con dos categorias
+          (si/no, verdadero/falso, 0/1).
+  \end{itemize}
+  \begin{block}{Cuidado}
+    Codificar ``bajo=1, medio=2, alto=3'' NO los vuelve numeros: la diferencia
+    entre niveles no es comparable como en una escala continua.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Datos cuantitativos (numericos)}
+  \begin{itemize}
+    \item \textbf{Discreto}: valores contables, normalmente enteros.
+          Ej.: numero de hijos, visitas a una pagina, defectos por lote.
+    \item \textbf{Continuo}: cualquier valor en un intervalo (se mide).
+          Ej.: estatura, temperatura, tiempo de respuesta.
+  \end{itemize}
+  \vspace{0.3em}
+  Escalas de medicion clasicas (Stevens):
+  \begin{itemize}
+    \item \textbf{Intervalo}: sin cero absoluto (grados Celsius, anio).
+    \item \textbf{Razon}: con cero absoluto (peso, ingreso, distancia).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos especiales: fechas, tiempo y texto}
+  \begin{itemize}
+    \item \textbf{Fecha / hora}: parecen texto, pero tienen orden y aritmetica
+          (restar fechas da una duraci\'on). Usar siempre formato ISO 8601:
+          \texttt{2026-06-29}, no \texttt{29/06/26}.
+    \item \textbf{Series de tiempo}: secuencia de valores indexada por instante.
+    \item \textbf{Geoespacial}: coordenadas (lat, lon), poligonos.
+    \item \textbf{Texto libre}: cadena sin estructura fija (un comentario, un
+          articulo) -- es el puente hacia los datos no estructurados.
+  \end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Estructurados, semi y no estructurados}
+
+\begin{frame}[fragile]{Tres grandes familias por su estructura}
+  \begin{center}
+  \begin{tikzpicture}[
+      box/.style={rounded corners, draw=#1, very thick, fill=#1!10,
+                  minimum width=3.5cm, minimum height=2.4cm, align=center,
+                  font=\footnotesize},
+      every node/.style={align=center}]
+    \node[box=molTeal]    (e) at (0,0)   {\textbf{Estructurados}\\[3pt]
+      filas y columnas\\ esquema fijo\\[3pt] tablas SQL,\\ CSV, hojas};
+    \node[box=molNaranja] (s) at (4.4,0) {\textbf{Semi-estructurados}\\[3pt]
+      etiquetas/jerarquia\\ esquema flexible\\[3pt] JSON, XML,\\ YAML, logs};
+    \node[box=molMorado]  (n) at (8.8,0) {\textbf{No estructurados}\\[3pt]
+      sin esquema tabular\\[3pt] texto, imagen,\\ audio, video};
+  \end{tikzpicture}
+  \end{center}
+  \vspace{0.4em}
+  Se estima que el \textbf{80-90\%} de los datos del mundo son no estructurados:
+  ah\'i es donde el deep learning y los LLM aportan m\'as.
+\end{frame}
+
+\begin{frame}[fragile]{El mismo hecho en tres formatos}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \textbf{Estructurado} (tabla)
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+id | nombre | edad
+ 1 | Ana    |  34
+ 2 | Luis   |  29
+\end{lstlisting}
+      \textbf{Semi-estructurado} (JSON)
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+{"id":1,"nombre":"Ana",
+ "edad":34,
+ "hobbies":["correr"]}
+\end{lstlisting}
+    \column{0.5\textwidth}
+      \textbf{No estructurado} (texto)
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+"Ana, de 34 anios, sale
+ a correr cada maniana
+ antes del trabajo."
+\end{lstlisting}
+      \vspace{0.5em}
+      A m\'as estructura, m\'as f\'acil de consultar; a menos estructura, m\'as
+      riqueza y m\'as trabajo de preparaci\'on.
+  \end{columns}
+\end{frame}
+
+% ======================================================================
+\section{Los datos y su representaci\'on}
+
+\begin{frame}{Al final, todo se vuelve numeros}
+  Para que una computadora (y un modelo) procese un dato, hay que
+  \textbf{representarlo} como numeros:
+  \begin{itemize}
+    \item \textbf{Tabla}: matriz filas x columnas.
+    \item \textbf{Imagen}: matriz de pixeles (alto x ancho x canales RGB).
+    \item \textbf{Audio}: vector de amplitudes muestreadas en el tiempo.
+    \item \textbf{Texto}: secuencia de tokens -> vectores (embeddings).
+    \item \textbf{Grafo}: nodos + aristas (matriz de adyacencia).
+  \end{itemize}
+  La representaci\'on elegida condiciona qu\'e modelo se puede usar.
+\end{frame}
+
+\begin{frame}[fragile]{Una imagen es una matriz de pixeles}
+  \begin{columns}[c]
+    \column{0.5\textwidth}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.42]
+      \foreach \x in {0,...,7}
+        \foreach \y in {0,...,7} {
+          \pgfmathsetmacro{\g}{(\x+\y)*6}
+          \fill[black!\g] (\x,-\y) rectangle ++(1,-1);
+          \draw[gray!40] (\x,-\y) rectangle ++(1,-1);
+        }
+    \end{tikzpicture}
+    \end{center}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item Cada celda es un \textbf{pixel}: un numero 0--255 por canal.
+        \item Gris: una matriz $H\times W$. Color: tres matrices (R, G, B).
+        \item Una foto de 640x640 a color son
+              $640\cdot640\cdot3 \approx 1.2$ millones de numeros.
+      \end{itemize}
+      Por eso las im\'agenes son ``pesadas'' y necesitan redes especializadas
+      (CNN).
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Tablas, grafos, audio y texto}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \textbf{Grafo} (nodos + aristas)
+      \begin{center}
+      \begin{tikzpicture}[scale=0.8, every node/.style={circle,fill=molTeal!25,
+            draw=molTeal,font=\scriptsize,inner sep=1.5pt}]
+        \node (a) at (0,1) {A}; \node (b) at (1.4,1.4) {B};
+        \node (c) at (1.8,0) {C}; \node (d) at (0.4,-0.4) {D};
+        \draw[molMorado] (a)--(b); \draw[molMorado] (a)--(c);
+        \draw[molMorado] (b)--(c); \draw[molMorado] (c)--(d);
+      \end{tikzpicture}
+      \end{center}
+      Redes sociales, mapas, mol\'eculas.
+    \column{0.5\textwidth}
+      \textbf{Audio} (forma de onda)
+      \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        \draw[molTeal,thick,domain=0:4,samples=80,smooth]
+          plot (\x, {0.5*sin(360*\x)+0.25*sin(720*\x)});
+        \draw[gray!50,-{Latex[length=1mm]}] (0,-0.9)--(4.2,-0.9);
+      \end{tikzpicture}
+      \end{center}
+      Amplitud muestreada (p.ej. 44100 Hz).
+  \end{columns}
+  \vspace{0.4em}
+  \textbf{Texto}: ``el gato'' -> tokens \texttt{[el][ gato]} -> vectores
+  num\'ericos (embeddings) que capturan significado.
+\end{frame}
+
+% ======================================================================
+\section{Gram\'atica de los datos: tidy data}
+
+\begin{frame}{?`Qu\'e es la gramatica de los datos?}
+  As\'i como una lengua tiene reglas para formar frases claras, los datos
+  tabulares tienen una \textbf{gramatica} para ser ordenados y reutilizables.
+  El estandar es \emph{tidy data} (Hadley Wickham):
+  \begin{enumerate}
+    \item Cada \textbf{variable} es una \textbf{columna}.
+    \item Cada \textbf{observacion} es una \textbf{fila}.
+    \item Cada \textbf{tipo de unidad observacional} es una \textbf{tabla}.
+  \end{enumerate}
+  \begin{block}{Por que importa}
+    Datos ordenados = una sola forma correcta; datos desordenados = mil formas
+    distintas. Lo ordenado se filtra, agrupa y grafica sin pelear.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Formato ancho (wide) vs ordenado (tidy)}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \textbf{Wide} (a\~nos como columnas)
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+ciudad | 2020 | 2021 | 2022
+GDL    | 28.1 | 28.7 | 29.0
+CDMX   | 17.5 | 17.9 | 18.2
+\end{lstlisting}
+      Comodo para leer, malo para procesar:
+      el a\~no es un \textbf{valor}, no una variable.
+    \column{0.5\textwidth}
+      \textbf{Tidy} (una observacion por fila)
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+ciudad | anio | temp
+GDL    | 2020 | 28.1
+GDL    | 2021 | 28.7
+GDL    | 2022 | 29.0
+CDMX   | 2020 | 17.5
+...
+\end{lstlisting}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{De wide a tidy con pandas}
+\begin{lstlisting}[language=Python]
+import pandas as pd
+
+# wide: una columna por anio
+df = pd.read_csv("temperaturas_wide.csv")
+
+# melt: "alarga" la tabla a formato tidy
+tidy = df.melt(id_vars="ciudad",
+               var_name="anio",
+               value_name="temp")
+
+tidy["anio"] = tidy["anio"].astype(int)
+\end{lstlisting}
+  \vspace{0.2em}
+  \texttt{melt} ordena (wide -> long); \texttt{pivot} hace lo inverso
+  (long -> wide) cuando se necesita una tabla de reporte.
+\end{frame}
+
+% ======================================================================
+\section{Malas pr\'acticas en hojas de c\'alculo}
+
+\begin{frame}{Reglas de oro para una tabla sana}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \textbf{Si}
+      \begin{itemize}
+        \item Una variable por columna.
+        \item Una observaci\'on por fila.
+        \item Encabezados en la 1a fila, cortos y sin espacios.
+        \item Un solo dato por celda.
+        \item Codigos de faltante explicitos (NA).
+      \end{itemize}
+    \column{0.5\textwidth}
+      \textbf{No}
+      \begin{itemize}
+        \item Celdas combinadas (merge).
+        \item Colores como si fueran datos.
+        \item Varias tablas en una hoja.
+        \item Totales mezclados con datos.
+        \item Unidades dentro de la celda (``34 kg'').
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Malas practicas tipicas (y su arreglo)}
+  \begin{itemize}
+    \item \textbf{Columnas que inician con numero o espacio}: \texttt{2020},
+          \texttt{1er trimestre}. Muchas herramientas no las aceptan como nombre.
+          Arreglo: \texttt{anio\_2020}, \texttt{trim\_1}.
+    \item \textbf{Los datos crecen en filas, no en columnas}: agregar un a\~no
+          nuevo NO debe ser una columna nueva, sino filas nuevas (formato tidy).
+    \item \textbf{Fechas como texto} (\texttt{29/06/26}): ambiguas y no ordenables.
+          Arreglo: ISO \texttt{2026-06-29}.
+    \item \textbf{Nombres que el programa ``corrige'' solo}: ver el caso de los
+          genes en la siguiente secci\'on.
+  \end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Cuando Excel sale caro}
+
+\begin{frame}{Catastrofes reales por hojas de calculo (I)}
+  \begin{block}{Reinhart \& Rogoff (2010)}
+    Un paper muy citado sobre deuda y crecimiento ten\'ia un rango de celdas
+    mal seleccionado en Excel: omiti\'o 5 paises. El error reforz\'o pol\'iticas
+    de \textbf{austeridad} antes de ser detectado por un estudiante en 2013.
+  \end{block}
+  \begin{block}{Public Health England (2020)}
+    Cerca de \textbf{16,000 casos de COVID-19} no se reportaron porque se uso
+    el formato viejo \texttt{.xls}, limitado a 65,536 filas: los contagios
+    extra simplemente se truncaron y no se rastrearon contactos.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Catastrofes reales por hojas de calculo (II)}
+  \begin{itemize}
+    \item \textbf{Genes convertidos en fechas}: Excel transformaba \texttt{SEPT2}
+          en ``2-Sep'' y \texttt{MARCH1} en fecha. Un estudio (2016) hall\'o
+          errores en \textbf{1 de cada 5} papers genomicos; en 2020 el comite
+          HGNC \textbf{renombro genes} para esquivar a Excel.
+    \item \textbf{JPMorgan ``London Whale'' (2012)}: un modelo de riesgo en Excel
+          con copiar/pegar manual entre celdas contribuyo a perdidas de
+          \textbf{6 mil millones} de dolares.
+    \item \textbf{TransAlta (2003)}: un error de copiar/pegar en una hoja le costo
+          \textbf{24 millones} de dolares en contratos mal asignados.
+  \end{itemize}
+  \vspace{0.3em}
+  Moraleja: la hoja de calculo es genial para mirar, peligrosa como base de datos.
+\end{frame}
+
+% ======================================================================
+\section{Resumen}
+
+\begin{frame}{Takeaways}
+  \begin{itemize}
+    \item Los datos se clasifican por \textbf{naturaleza} (cualitativos vs
+          cuantitativos; nominal/ordinal, discreto/continuo) y por
+          \textbf{estructura} (estructurados, semi, no estructurados).
+    \item Todo dato -- imagen, audio, texto, grafo -- termina representado como
+          \textbf{numeros}; la representaci\'on define el modelo aplicable.
+    \item La \textbf{gramatica tidy}: una variable por columna, una observaci\'on
+          por fila, una tabla por unidad.
+    \item Las hojas de calculo invitan a malas pr\'acticas; varios desastres
+          (Reinhart-Rogoff, PHE, genes, JPMorgan) nacieron de ah\'i.
+    \item Datos ordenados hoy = menos sufrimiento (y menos catastrofes) ma\~nana.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \molinaBanner
+  \vfill
+  \begin{center}
+    {\color{molMorado}\Large\bfseries Gracias}\\[0.4em]
+    {\color{molTeal} Siguiente: limpieza y preparaci\'on de datos en la pr\'actica}
+  \end{center}
+  \vfill\vspace{1.0cm}
+  \molinaLogos
+\end{frame}
+
+\end{document}

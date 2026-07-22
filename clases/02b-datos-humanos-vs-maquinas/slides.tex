@@ -1,0 +1,319 @@
+% Clase 02 (Parte II) -- Datos para maquinas vs datos para humanos;
+% AI for Data y Data for AI; agentes LLM.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva), DOS pasadas:
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+%   pdflatex -shell-escape -interaction=nonstopmode slides.tex
+% Solo caracteres ASCII (acentos con comandos LaTeX: \'a \~n \c{c}).
+\documentclass[aspectratio=169]{beamer}
+% El tema ya carga inputenc, fontenc y babel (spanish si esta instalado).
+\input{../../tema/molina-tema.tex}
+
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,fit,backgrounds}
+
+\title{Clase 02 (Parte II) -- Datos para humanos vs datos para m\'aquinas}
+\subtitle{AI for Data, Data for AI y los agentes LLM}
+\author{Instituto Tecnol\'ogico Jos\'e Mario Molina Pasquel y Henr\'iquez}
+\date{\today}
+
+\begin{document}
+
+% ----------------------------------------------------------------------
+% Portada
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Agenda
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% ======================================================================
+\section{?`Qui\'en consume los datos?}
+
+\begin{frame}{Una nueva pregunta sobre los datos}
+  En la Parte I clasificamos los datos por su \textbf{tipo} y su \textbf{estructura}.
+  Ahora preguntamos algo distinto:
+  \begin{block}{?`Para qui\'en son los datos?}
+    Durante d\'ecadas los datos se prepararon para que los leyera una
+    \textbf{persona}. Hoy, cada vez m\'as, el consumidor es una \textbf{m\'aquina}:
+    un modelo, un pipeline o un \textbf{agente de IA}.
+  \end{block}
+  \vspace{0.3em}
+  Y un mismo dato hay que \textbf{organizarlo y presentarlo de forma distinta}
+  segun quien lo va a usar.
+\end{frame}
+
+% ======================================================================
+\section{Datos para humanos vs datos para m\'aquinas}
+
+\begin{frame}[fragile]{Dos consumidores, dos necesidades}
+  \begin{center}
+  \begin{tikzpicture}[
+      cab/.style={font=\small\bfseries, text=#1},
+      caja/.style={rounded corners, draw=#1, very thick, fill=#1!8,
+                   minimum width=5.3cm, minimum height=3.2cm, align=left,
+                   text width=4.9cm, font=\footnotesize},
+      every node/.style={align=center}]
+    \node[caja=molTeal] (h) at (0,0) {%
+      \textbf{Humano}\\[3pt]
+      - Visualizaci\'on y narrativa\\
+      - Infiere contexto (sentido com\'un)\\
+      - Tolera ambiguedad\\
+      - Pocos datos a la vez\\
+      - Quiere ``la conclusi\'on''};
+    \node[caja=molMorado] (m) at (6.2,0) {%
+      \textbf{M\'aquina / agente}\\[3pt]
+      - Estructura y formato fijo\\
+      - Metadatos y riqueza sem\'antica\\
+      - Granularidad y completitud\\
+      - APIs con \textbf{contrato} claro\\
+      - Manejo de errores y verificaci\'on};
+    \node[cab=molTeal] at (0,1.9) {Lee};
+    \node[cab=molMorado] at (6.2,1.9) {Procesa};
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Casos de uso}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \textbf{Datos para humanos}
+      \begin{itemize}
+        \item Tableros (dashboards) y reportes.
+        \item Gr\'aficas y mapas.
+        \item Resumenes ejecutivos.
+        \item Infograf\'ias y notas.
+      \end{itemize}
+    \column{0.5\textwidth}
+      \textbf{Datos para m\'aquinas}
+      \begin{itemize}
+        \item APIs y servicios (JSON).
+        \item Datasets para entrenar modelos.
+        \item Pipelines ETL y \emph{feature stores}.
+        \item Herramientas que invoca un agente.
+      \end{itemize}
+  \end{columns}
+  \vspace{0.5em}
+  La \textbf{visualizaci\'on} informa mucho a un humano y \textbf{poco} a un
+  agente: este necesita los n\'umeros y su significado, no la imagen.
+\end{frame}
+
+\begin{frame}[fragile]{El mismo dato, dos presentaciones}
+  \begin{columns}[t]
+    \column{0.46\textwidth}
+      \textbf{Para humano} (gr\'afica)
+      \begin{center}
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->,gray] (0,0)--(5,0); \draw[->,gray] (0,0)--(0,3.4);
+        \fill[molTeal]    (0.4,0) rectangle (1.2,2.8);
+        \fill[molNaranja] (1.6,0) rectangle (2.4,1.8);
+        \fill[molAmarillo](2.8,0) rectangle (3.6,3.2);
+        \node[font=\tiny] at (0.8,-0.4){GDL};
+        \node[font=\tiny] at (2.0,-0.4){CDMX};
+        \node[font=\tiny] at (3.2,-0.4){MTY};
+      \end{tikzpicture}
+      \end{center}
+      De un vistazo: ``MTY vende m\'as''.
+    \column{0.54\textwidth}
+      \textbf{Para m\'aquina} (JSON + esquema)
+\begin{lstlisting}[language=, basicstyle=\ttfamily\scriptsize]
+{"region": "MTY",
+ "ventas": 320000,
+ "unidad": "MXN",
+ "periodo": "2026-Q1"}
+# esquema: region:str, ventas:int(MXN),
+#          periodo:str(ISO)
+\end{lstlisting}
+      Exacto, tipado y con \textbf{metadatos}.
+  \end{columns}
+\end{frame}
+
+% ======================================================================
+\section{AI for Data y Data for AI}
+
+\begin{frame}{Dos direcciones de la misma moneda}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \begin{block}{AI for Data (para humanos)}
+        La IA ayuda a las \textbf{personas} a acceder y entender los datos:
+        \begin{itemize}
+          \item Preguntar en lenguaje natural (NL $\to$ SQL).
+          \item Resumir y explicar.
+          \item Generar gr\'aficas y reportes.
+        \end{itemize}
+      \end{block}
+    \column{0.5\textwidth}
+      \begin{block}{Data for AI (para agentes)}
+        Preparar los datos para que los \textbf{agentes} los consuman:
+        \begin{itemize}
+          \item Capa sem\'antica y metadatos.
+          \item APIs y herramientas con contrato.
+          \item Datos limpios, completos y trazables.
+        \end{itemize}
+      \end{block}
+  \end{columns}
+  \vspace{0.4em}
+  \footnotesize Idea central (Dan Roth): el gran uso de los LLM ser\'a
+  \textbf{orquestar el acceso a datos externos}, y los consumidores ser\'an
+  \textbf{tanto humanos como agentes}.
+\end{frame}
+
+\begin{frame}{?`Qu\'e necesita un agente que un humano no?}
+  Un humano completa los huecos con su experiencia; un agente \textbf{no}. Por eso
+  los datos ``para IA'' deben aportar de forma expl\'icita:
+  \begin{itemize}
+    \item \textbf{Instrucciones} y \textbf{estructura/formato} predecibles.
+    \item \textbf{Riqueza sem\'antica}: qu\'e significa cada campo y su unidad.
+    \item \textbf{Metadatos y contexto}: origen, fecha, definiciones.
+    \item \textbf{Granularidad y completitud}: ni de m\'as ni de menos.
+    \item \textbf{Manejo de errores, confianza y verificaci\'on}.
+  \end{itemize}
+  \vspace{0.2em}
+  En resumen: una \textbf{capa sem\'antica} y \textbf{APIs con contratos claros}.
+\end{frame}
+
+% ======================================================================
+\section{Los agentes LLM}
+
+\begin{frame}[fragile]{Antecedentes: c\'omo llegamos a los agentes}
+  \begin{center}
+  \begin{tikzpicture}[font=\footnotesize, every node/.style={align=center}]
+    \draw[molTeal, very thick, -{Latex[length=3mm]}] (0,0) -- (12,0);
+    \foreach \x/\t in {
+        0.4/{Sistemas\\ de reglas},
+        4.0/{Machine\\ learning},
+        7.6/{LLMs\\ (texto)},
+        11.2/{Agentes\\ LLM}} {
+      \fill[molNaranja] (\x,0) circle (2.4pt);
+      \node[anchor=south, text width=2.4cm] at (\x,0.15) {\t};
+    }
+  \end{tikzpicture}
+  \end{center}
+  \vspace{0.4em}
+  \begin{itemize}
+    \item \textbf{Reglas}: el humano programa cada paso.
+    \item \textbf{ML}: el modelo aprende patrones de los datos.
+    \item \textbf{LLM}: genera y entiende lenguaje, pero solo ``habla''.
+    \item \textbf{Agente}: un LLM que adem\'as \textbf{act\'ua} con herramientas.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{?`Qu\'e es un agente LLM?}
+  \begin{columns}[c]
+    \column{0.46\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[
+          n/.style={rounded corners, draw=#1, very thick, fill=#1!12,
+                    minimum width=2.3cm, minimum height=0.8cm, align=center,
+                    font=\scriptsize\bfseries},
+          every node/.style={align=center}]
+        \node[n=molTeal]   (p) at (0,1.6)   {Percibir};
+        \node[n=molMorado] (t) at (1.9,0)   {Pensar\\(planear)};
+        \node[n=molNaranja](a) at (-1.9,0)  {Actuar\\(herramienta)};
+        \draw[-{Latex[length=2mm]},thick] (p) -- (t);
+        \draw[-{Latex[length=2mm]},thick] (t) -- (a);
+        \draw[-{Latex[length=2mm]},thick] (a) -- (p);
+      \end{tikzpicture}
+      \end{center}
+      \footnotesize El ciclo se repite hasta resolver la tarea.
+    \column{0.54\textwidth}
+      Un \textbf{agente LLM} es un modelo de lenguaje que, ademas de responder,
+      puede \textbf{decidir y actuar}:
+      \begin{itemize}
+        \item \textbf{Herramientas}: llama funciones, APIs o busquedas.
+        \item \textbf{Memoria}: recuerda pasos previos.
+        \item \textbf{Planeaci\'on}: divide la tarea en sub-tareas.
+        \item \textbf{Observaci\'on}: usa el resultado para el siguiente paso.
+      \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Una herramienta para el agente: el contrato}
+\begin{lstlisting}[language=Python]
+def consultar_ventas(region: str, periodo: str) -> dict:
+    """Devuelve las ventas de una region en un periodo.
+    Entradas: region (clave), periodo (ISO, p.ej. 2026-Q1).
+    Salida: {"region", "ventas": int(MXN), "periodo"}.
+    """
+    fila = TABLA[(TABLA.region == region)]
+    return {"region": region, "ventas": int(fila.ventas),
+            "periodo": periodo}
+\end{lstlisting}
+  El \textbf{contrato} (tipos de entrada/salida y significado) es lo que permite
+  al agente usar la herramienta de forma confiable.
+\end{frame}
+
+% ======================================================================
+\section{Por qu\'e es dif\'icil}
+
+\begin{frame}{Retos de los datos para los agentes}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item \textbf{Recuperaci\'on}: hallar el dato cuando la pregunta no usa
+              las mismas palabras (capa sem\'antica).
+        \item \textbf{Estructura}: traducir lenguaje natural a SQL y entender
+              c\'omo se relacionan las tablas.
+        \item \textbf{M\'ultiples fuentes}: texto, tablas, listas, im\'agenes.
+      \end{itemize}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \item \textbf{Planeaci\'on}: decidir el orden de los pasos.
+        \item \textbf{Informaci\'on en conflicto}: fuentes que se contradicen.
+        \item \textbf{Razonamiento}: pasos que los modelos generales fallan.
+      \end{itemize}
+  \end{columns}
+  \vspace{0.4em}
+  Real-world: los datos suelen ser \textbf{multimodales, temporales y
+  multiling\"ues}; acceder, entender y usarlos de forma confiable sigue siendo
+  dif\'icil.
+\end{frame}
+
+\begin{frame}{Agentes de c\'odigo: r\'apidos, pero con cuidado}
+  \begin{itemize}
+    \item Los agentes hacen tareas \textbf{m\'as r\'apido} que nosotros\ldots
+    \item \ldots pero son \textbf{propensos a errores} y pueden tener
+          \textbf{costo alto}.
+    \item Riesgos de \textbf{seguridad} y \textbf{equivocaciones}, sobre todo en
+          tareas que dependen de conocimiento.
+  \end{itemize}
+  \begin{block}{Dos momentos de preparaci\'on}
+    \textbf{Off-line} (al ingerir): extraer elementos, generar metadatos e
+    \'indices. \textbf{En inferencia}: el agente busca de forma iterativa con
+    sus herramientas y verifica.
+  \end{block}
+\end{frame}
+
+% ======================================================================
+\section{Resumen}
+
+\begin{frame}{Takeaways}
+  \begin{itemize}
+    \item Un mismo dato se \textbf{organiza distinto} segun quien lo consume:
+          un humano o una m\'aquina.
+    \item \textbf{Humanos}: visualizaci\'on, narrativa y contexto por sentido
+          com\'un. \textbf{M\'aquinas}: estructura, metadatos, granularidad y
+          contratos.
+    \item \textbf{AI for Data} ayuda a las personas a usar datos; \textbf{Data
+          for AI} prepara los datos para los agentes.
+    \item Un \textbf{agente LLM} percibe, planea y act\'ua con herramientas,
+          memoria y un ciclo de observaci\'on.
+    \item Los retos siguen: recuperaci\'on, estructura, m\'ultiples fuentes,
+          planeaci\'on, conflictos y razonamiento.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \molinaBanner
+  \vfill
+  \begin{center}
+    {\color{molMorado}\Large\bfseries Gracias}\\[0.4em]
+    {\color{molTeal} Los datos del futuro: para humanos y para agentes}
+  \end{center}
+  \vfill\vspace{1.0cm}
+  \molinaLogos
+\end{frame}
+
+\end{document}

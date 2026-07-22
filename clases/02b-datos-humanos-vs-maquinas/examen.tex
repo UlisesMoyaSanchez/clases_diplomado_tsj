@@ -1,0 +1,170 @@
+% Examen Clase 02 (Parte II) -- Datos para humanos vs datos para maquinas.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva el logo):
+%   pdflatex -interaction=nonstopmode examen.tex
+% La clase 'exam' marca la respuesta correcta con \CorrectChoice.
+% Con \printanswers activo se genera la CLAVE (respuesta correcta senalada);
+% comentalo para producir la version limpia del alumno.
+% Solo caracteres ASCII (acentos con comandos: \'a \~n \c{c}).
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Spanish solo si esta instalado (texlive-lang-spanish); si no, cae a english.
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Logo institucional y figuras (mismas rutas que las slides)
+\graphicspath{{../../tema/}{figuras/}}
+
+% Paleta institucional (muestreada del master)
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molMorado}{HTML}{532587}
+
+% Resalta en teal y negrita la opcion correcta cuando se imprimen respuestas
+\CorrectChoiceEmphasis{\color{molTeal}\bfseries}
+
+% Etiqueta de puntos en espanol (la clase 'exam' la pone en ingles por defecto)
+\pointpoints{punto}{puntos}
+
+% CLAVE: muestra la respuesta correcta. Comenta esta linea para la version
+% del alumno (sin respuestas senaladas).
+\printanswers
+
+\pagestyle{headandfoot}
+\firstpageheader
+  {\includegraphics[height=1.0cm]{logo_mario_molina}}
+  {}
+  {\includegraphics[height=0.8cm]{logo_TSJ}}
+\runningheader{Clase 02-II -- Humanos vs maquinas}{Examen}{Pagina \thepage}
+\firstpagefooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+\runningfooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+
+\begin{document}
+
+\begin{center}
+  {\color{molMorado}\Large\bfseries Examen -- Clase 02 (Parte II):
+   Datos para humanos vs datos para m\'aquinas}\\[3pt]
+  {\color{molTeal}\large Diplomado Lenguaje de los Datos}
+\end{center}
+
+\vspace{6pt}
+\noindent Nombre: \rule{6cm}{0.4pt} \hfill Fecha: \rule{3cm}{0.4pt}
+
+\vspace{6pt}
+\noindent\textbf{Instrucciones:} selecciona la \'unica opci\'on correcta en cada
+pregunta.
+
+\vspace{4pt}
+\hrule
+\vspace{8pt}
+
+\begin{questions}
+
+\question[1] Una \textbf{grafica de barras} de un reporte de ventas es un ejemplo
+de datos preparados sobre todo para:
+\begin{choices}
+  \CorrectChoice El consumo humano.
+  \choice El consumo de un agente de IA.
+  \choice Un pipeline de entrenamiento de modelos.
+  \choice Una API REST.
+\end{choices}
+
+\question[1] ?`Cu\'al de las siguientes necesita especialmente una \textbf{maquina
+o agente}, pero un humano suele suplir con su experiencia?
+\begin{choices}
+  \choice Una imagen llamativa.
+  \CorrectChoice Metadatos explicitos y un esquema con tipos y unidades.
+  \choice Un titulo grande.
+  \choice Colores agradables.
+\end{choices}
+
+\question[1] En el marco de Dan Roth, \textbf{AI for Data} se refiere a:
+\begin{choices}
+  \choice Preparar los datos para que los consuman los agentes.
+  \CorrectChoice Usar la IA para ayudar a las personas a acceder y entender los
+    datos (p.ej. preguntar en lenguaje natural).
+  \choice Entrenar modelos de vision por computadora.
+  \choice Comprimir los datos para archivarlos.
+\end{choices}
+
+\question[1] \textbf{Data for AI} consiste en:
+\begin{choices}
+  \choice Generar graficas mas bonitas para los humanos.
+  \choice Eliminar los datos despues de usarlos.
+  \CorrectChoice Organizar y presentar los datos (capa semantica, APIs con
+    contrato) para que los agentes los consuman.
+  \choice Traducir los datos a otro idioma.
+\end{choices}
+
+\question[1] ?`Que distingue a un \textbf{agente LLM} de un LLM que solo responde
+texto?
+\begin{choices}
+  \CorrectChoice Que ademas puede decidir y actuar usando herramientas, memoria
+    y planeacion.
+  \choice Que ocupa menos memoria.
+  \choice Que no necesita datos para funcionar.
+  \choice Que solo sirve para traducir.
+\end{choices}
+
+\question[1] El ciclo basico de un agente se describe como:
+\begin{choices}
+  \choice Comprimir -> cifrar -> archivar.
+  \CorrectChoice Percibir -> pensar (planear) -> actuar (y observar el resultado).
+  \choice Extraer -> transformar -> cargar.
+  \choice Entrenar -> validar -> desplegar.
+\end{choices}
+
+\question[1] ?`Por que es importante el \textbf{contrato} de una herramienta que
+usa un agente?
+\begin{choices}
+  \choice Porque hace la herramienta mas rapida.
+  \choice Porque reduce el tamano del archivo.
+  \CorrectChoice Porque define los tipos de entrada/salida y su significado, para
+    que el agente la use de forma confiable.
+  \choice Porque la vuelve mas colorida.
+\end{choices}
+
+\question[1] Seg\'un la clase, ?`por que la \textbf{visualizacion} aporta poco a
+un agente?
+\begin{choices}
+  \choice Porque los agentes no pueden abrir imagenes nunca.
+  \CorrectChoice Porque el agente necesita los valores exactos, su estructura y
+    significado, no la imagen.
+  \choice Porque las graficas siempre tienen errores.
+  \choice Porque las graficas ocupan demasiado espacio.
+\end{choices}
+
+\question[1] ?`Cu\'al es el orden historico (antecedentes) que llevo a los
+agentes?
+\begin{choices}
+  \choice LLMs -> reglas -> machine learning -> agentes.
+  \choice Machine learning -> reglas -> agentes -> LLMs.
+  \CorrectChoice Sistemas de reglas -> machine learning -> LLMs -> agentes.
+  \choice Agentes -> LLMs -> machine learning -> reglas.
+\end{choices}
+
+\question[1] ?`Cu\'al de los siguientes es un \textbf{reto} para que los agentes
+usen datos, mencionado en la clase?
+\begin{choices}
+  \choice Que las graficas tengan pocos colores.
+  \choice Que los archivos sean demasiado pequenos.
+  \CorrectChoice La recuperacion cuando la pregunta no usa las mismas palabras, y
+    la informacion en conflicto entre fuentes.
+  \choice Que el texto este en mayusculas.
+\end{choices}
+
+\question[1] Sobre los \textbf{agentes de codigo}, la clase advierte que:
+\begin{choices}
+  \choice Nunca cometen errores.
+  \choice Son siempre mas baratos que un humano.
+  \CorrectChoice Son mas rapidos, pero propensos a errores y con posible costo
+    alto, por lo que requieren verificacion.
+  \choice No pueden usar herramientas externas.
+\end{choices}
+
+\end{questions}
+
+\end{document}

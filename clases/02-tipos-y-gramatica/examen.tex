@@ -1,0 +1,169 @@
+% Examen Clase 02 -- Tipos de datos y gramatica de los datos.
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva el logo):
+%   pdflatex -interaction=nonstopmode examen.tex
+% La clase 'exam' marca la respuesta correcta con \CorrectChoice.
+% Con \printanswers activo se genera la CLAVE (respuesta correcta senalada);
+% comentalo para producir la version limpia del alumno.
+% Solo caracteres ASCII (acentos con comandos: \'a \~n \c{c}).
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Spanish solo si esta instalado (texlive-lang-spanish); si no, cae a english.
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Logo institucional y figuras (mismas rutas que las slides)
+\graphicspath{{../../tema/}{figuras/}}
+
+% Paleta institucional (muestreada del master)
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molMorado}{HTML}{532587}
+
+% Resalta en teal y negrita la opcion correcta cuando se imprimen respuestas
+\CorrectChoiceEmphasis{\color{molTeal}\bfseries}
+
+% Etiqueta de puntos en espanol (la clase 'exam' la pone en ingles por defecto)
+\pointpoints{punto}{puntos}
+
+% CLAVE: muestra la respuesta correcta. Comenta esta linea para la version
+% del alumno (sin respuestas senaladas).
+\printanswers
+
+\pagestyle{headandfoot}
+\firstpageheader
+  {\includegraphics[height=1.0cm]{logo_mario_molina}}
+  {}
+  {\includegraphics[height=0.8cm]{logo_TSJ}}
+\runningheader{Clase 02 -- Tipos y gramatica}{Examen}{Pagina \thepage}
+\firstpagefooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+\runningfooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+
+\begin{document}
+
+\begin{center}
+  {\color{molMorado}\Large\bfseries Examen -- Clase 02:
+   Tipos de datos y gram\'atica de los datos}\\[3pt]
+  {\color{molTeal}\large Diplomado Lenguaje de los Datos}
+\end{center}
+
+\vspace{6pt}
+\noindent Nombre: \rule{6cm}{0.4pt} \hfill Fecha: \rule{3cm}{0.4pt}
+
+\vspace{6pt}
+\noindent\textbf{Instrucciones:} selecciona la \'unica opci\'on correcta en cada
+pregunta.
+
+\vspace{4pt}
+\hrule
+\vspace{8pt}
+
+\begin{questions}
+
+\question[1] El nivel de satisfacci\'on de un cliente medido como
+``bajo / medio / alto'' es un dato de tipo:
+\begin{choices}
+  \choice Nominal.
+  \CorrectChoice Ordinal.
+  \choice Cuantitativo continuo.
+  \choice Cuantitativo discreto.
+\end{choices}
+
+\question[1] ?`Cu\'al de los siguientes es un dato cuantitativo \textbf{continuo}?
+\begin{choices}
+  \choice El n\'umero de hijos de una persona.
+  \choice El color de ojos.
+  \CorrectChoice La estatura en metros.
+  \choice El tipo de sangre.
+\end{choices}
+
+\question[1] Si codificamos ``bajo=1, medio=2, alto=3'', ?`por qu\'e hay que
+tener cuidado?
+\begin{choices}
+  \CorrectChoice Porque siguen siendo categorias ordinales: la distancia entre
+    niveles no es necesariamente igual ni comparable como en una escala continua.
+  \choice Porque pasan a ser datos nominales sin orden.
+  \choice Porque pierden su orden original.
+  \choice Porque ya no se pueden almacenar en una tabla.
+\end{choices}
+
+\question[1] Un archivo JSON con campos anidados y listas se clasifica como un
+dato:
+\begin{choices}
+  \choice Estructurado.
+  \CorrectChoice Semi-estructurado.
+  \choice No estructurado.
+  \choice Cuantitativo continuo.
+\end{choices}
+
+\question[1] Seg\'un la clase, ?`qu\'e proporci\'on aproximada de los datos del
+mundo es no estructurada?
+\begin{choices}
+  \choice Menos del 10\%.
+  \choice Alrededor del 50\%.
+  \CorrectChoice Entre el 80\% y el 90\%.
+  \choice Practicamente el 100\%.
+\end{choices}
+
+\question[1] ?`C\'omo se representa numericamente una imagen para que un modelo
+la procese?
+\begin{choices}
+  \choice Como una sola cadena de texto.
+  \choice Como un \'unico numero entre 0 y 255.
+  \CorrectChoice Como una matriz de pixeles (alto x ancho x canales de color).
+  \choice Como una lista de fechas.
+\end{choices}
+
+\question[1] La regla de los datos ordenados (\emph{tidy data}) establece que:
+\begin{choices}
+  \CorrectChoice Cada variable es una columna y cada observaci\'on es una fila.
+  \choice Cada variable es una fila y cada observaci\'on una columna.
+  \choice Todos los datos deben caber en una sola celda.
+  \choice Las columnas deben ordenarse alfabeticamente.
+\end{choices}
+
+\question[1] Tenemos una tabla con los a\~nos 2020, 2021 y 2022 como columnas
+(formato wide). ?`Qu\'e operaci\'on de pandas la convierte a formato tidy?
+\begin{choices}
+  \choice \texttt{pivot}
+  \choice \texttt{groupby}
+  \CorrectChoice \texttt{melt}
+  \choice \texttt{merge}
+\end{choices}
+
+\question[1] ?`Por qu\'e es mala practica nombrar columnas como \texttt{2020} o
+\texttt{1er trimestre}?
+\begin{choices}
+  \choice Porque ocupan demasiada memoria.
+  \CorrectChoice Porque muchos lenguajes y herramientas no aceptan nombres que
+    inician con numero o tienen espacios; conviene usar \texttt{anio\_2020}.
+  \choice Porque los numeros no se pueden mostrar en una tabla.
+  \choice Porque obligan a usar formato JSON.
+\end{choices}
+
+\question[1] El incidente de Public Health England (2020), en el que se perdieron
+unos 16,000 casos de COVID-19, se debi\'o a:
+\begin{choices}
+  \choice Un virus informatico en los servidores.
+  \choice Un error de redondeo en los porcentajes.
+  \CorrectChoice El uso del formato antiguo .xls, limitado a 65,536 filas, que
+    trunc\'o los registros que excedian ese limite.
+  \choice La falta de una conexion a internet.
+\end{choices}
+
+\question[1] Para evitar que una hoja de calculo convierta el nombre de gen
+\texttt{SEPT2} en la fecha ``2-Sep'', la mejor practica al cargar los datos es:
+\begin{choices}
+  \choice Escribir el gen en may\'usculas y negritas.
+  \choice Ordenar la columna alfabeticamente.
+  \choice Guardar el archivo en formato .xls.
+  \CorrectChoice Importar esa columna forzando el tipo texto (p.ej.
+    \texttt{dtype=str}) para que no se autoconvierta.
+\end{choices}
+
+\end{questions}
+
+\end{document}

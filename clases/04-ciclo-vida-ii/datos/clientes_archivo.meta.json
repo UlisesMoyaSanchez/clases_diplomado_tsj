@@ -1,0 +1,8 @@
+{
+  "fecha": "2026-06-29",
+  "responsable": "equipo_datos",
+  "razon": "archivado de clientes activos; baja ARCO del id 4",
+  "n_registros": 7,
+  "archivo": "clientes_archivo.csv.gz",
+  "sha256": "61d528352f952964485ba3823ceacd04e5604a1db0c1df32d9fb535c893ca490"
+}

@@ -91,3 +91,7 @@ del alumno. El paquete final se arma con `zip` desde `clases/` excluyendo
 | # | Tema | Fecha |
 |---|------|-------|
 | 01 | Motivacion: los datos en el corazon de la IA | 2026-06-22 |
+| 02 | Tipos de datos y gramatica de los datos | 2026-06-29 |
+| 02b | Datos para humanos vs datos para maquinas (AI for Data, Data for AI, agentes LLM) | 2026-06-29 |
+| 03 | Ciclo de vida de los datos (Parte I): captura y almacenamiento | 2026-06-29 |
+| 04 | Ciclo de vida de los datos (Parte II): seguridad, analisis y archivado | 2026-06-29 |

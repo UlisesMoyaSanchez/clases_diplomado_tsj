@@ -1,0 +1,170 @@
+% Examen Clase 03 -- Ciclo de vida de los datos (Parte I).
+% COMPILA desde esta carpeta (para que ../../tema/ resuelva el logo):
+%   pdflatex -interaction=nonstopmode examen.tex
+% La clase 'exam' marca la respuesta correcta con \CorrectChoice.
+% Con \printanswers activo se genera la CLAVE (respuesta correcta senalada);
+% comentalo para producir la version limpia del alumno.
+% Solo caracteres ASCII (acentos con comandos: \'a \~n \c{c}).
+\documentclass[12pt,addpoints]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Spanish solo si esta instalado (texlive-lang-spanish); si no, cae a english.
+\IfFileExists{spanish.ldf}%
+  {\usepackage[spanish]{babel}}%
+  {\usepackage[english]{babel}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% Logo institucional y figuras (mismas rutas que las slides)
+\graphicspath{{../../tema/}{figuras/}}
+
+% Paleta institucional (muestreada del master)
+\definecolor{molTeal}{HTML}{0094A2}
+\definecolor{molNaranja}{HTML}{FE730C}
+\definecolor{molMorado}{HTML}{532587}
+
+% Resalta en teal y negrita la opcion correcta cuando se imprimen respuestas
+\CorrectChoiceEmphasis{\color{molTeal}\bfseries}
+
+% Etiqueta de puntos en espanol (la clase 'exam' la pone en ingles por defecto)
+\pointpoints{punto}{puntos}
+
+% CLAVE: muestra la respuesta correcta. Comenta esta linea para la version
+% del alumno (sin respuestas senaladas).
+\printanswers
+
+\pagestyle{headandfoot}
+\firstpageheader
+  {\includegraphics[height=1.0cm]{logo_mario_molina}}
+  {}
+  {\includegraphics[height=0.8cm]{logo_TSJ}}
+\runningheader{Clase 03 -- Ciclo de vida I}{Examen}{Pagina \thepage}
+\firstpagefooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+\runningfooter{}{\color{molTeal}Diplomado Lenguaje de los Datos}{}
+
+\begin{document}
+
+\begin{center}
+  {\color{molMorado}\Large\bfseries Examen -- Clase 03:
+   Ciclo de vida de los datos (Parte I)}\\[3pt]
+  {\color{molTeal}\large Diplomado Lenguaje de los Datos}
+\end{center}
+
+\vspace{6pt}
+\noindent Nombre: \rule{6cm}{0.4pt} \hfill Fecha: \rule{3cm}{0.4pt}
+
+\vspace{6pt}
+\noindent\textbf{Instrucciones:} selecciona la \'unica opci\'on correcta en cada
+pregunta.
+
+\vspace{4pt}
+\hrule
+\vspace{8pt}
+
+\begin{questions}
+
+\question[1] ?`Cu\'ales son las dos primeras etapas del ciclo de vida de los
+datos que se estudian en esta clase?
+\begin{choices}
+  \CorrectChoice Creaci\'on/captura y transmisi\'on/almacenamiento.
+  \choice Limpieza y visualizaci\'on.
+  \choice Archivado y eliminaci\'on.
+  \choice Gesti\'on de acceso y seguridad.
+\end{choices}
+
+\question[1] ?`Cu\'al de los siguientes es un error tipico de la etapa de
+\textbf{captura} de datos?
+\begin{choices}
+  \choice Falta de respaldo fuera del sitio.
+  \choice Tablas mal normalizadas en SQL.
+  \CorrectChoice Datos duplicados o campos vac\'ios al recolectarlos.
+  \choice P\'erdida de datos por fallo de disco.
+\end{choices}
+
+\question[1] La diferencia esencial entre un \textbf{censo} y una \textbf{encuesta}
+es que el censo:
+\begin{choices}
+  \choice Usa una muestra peque\~na para ahorrar costos.
+  \CorrectChoice Recopila datos de \textbf{toda} la poblaci\'on, no solo de una
+    muestra.
+  \choice Solo se aplica a empresas, no a personas.
+  \choice No requiere ninguna metodolog\'ia.
+\end{choices}
+
+\question[1] En una encuesta con \textbf{95\% de confianza}, ?`qu\'e significa
+ese 95\%?
+\begin{choices}
+  \choice Que el 95\% de las personas respondieron el cuestionario.
+  \choice Que el resultado es exacto en un 95\%.
+  \CorrectChoice Que si se repitiera el estudio muchas veces, ~95\% de los
+    intervalos contendrian el valor real de la poblaci\'on.
+  \choice Que solo el 5\% de los datos tienen errores.
+\end{choices}
+
+\question[1] Un \textbf{sondeo} se caracteriza por ser:
+\begin{choices}
+  \choice Exhaustivo y aplicado a toda la poblaci\'on.
+  \choice El metodo mas costoso y preciso de todos.
+  \CorrectChoice R\'apido y no exhaustivo, con resultados \textbf{no
+    generalizables}.
+  \choice Obligatorio por ley en todos los paises.
+\end{choices}
+
+\question[1] ?`Cu\'al de las siguientes NO es una de las ``5 V'' del Big Data?
+\begin{choices}
+  \choice Volumen.
+  \choice Velocidad.
+  \choice Veracidad.
+  \CorrectChoice Visualizaci\'on.
+\end{choices}
+
+\question[1] La regla de respaldo \textbf{3-2-1} recomienda mantener:
+\begin{choices}
+  \CorrectChoice 3 copias de los datos, en 2 tipos de medios distintos, con 1
+    copia fuera del sitio.
+  \choice 3 servidores, 2 contrase\~nas y 1 administrador.
+  \choice 3 formatos de archivo, 2 nubes y 1 disco local.
+  \choice 3 respaldos diarios, 2 semanales y 1 mensual.
+\end{choices}
+
+\question[1] En un proceso \textbf{ETL}, ?`cu\'al es el orden correcto de las
+etapas?
+\begin{choices}
+  \choice Load -> Extract -> Transform.
+  \choice Transform -> Load -> Extract.
+  \CorrectChoice Extract -> Transform -> Load.
+  \choice Extract -> Load -> Transform.
+\end{choices}
+
+\question[1] ?`Cu\'al es una diferencia clave entre un \textbf{Data Warehouse} y
+un \textbf{Data Lake}?
+\begin{choices}
+  \choice El Data Lake solo guarda datos estructurados y el Warehouse cualquier tipo.
+  \CorrectChoice El Warehouse guarda datos ya procesados con esquema fijo
+    (schema-on-write); el Lake guarda datos en crudo con esquema al leer
+    (schema-on-read).
+  \choice Ambos son identicos, solo cambia el nombre comercial.
+  \choice El Data Warehouse no permite hacer consultas ni reportes.
+\end{choices}
+
+\question[1] En la orquestaci\'on con Apache Airflow, un \textbf{DAG} es:
+\begin{choices}
+  \choice Una base de datos relacional para reportes.
+  \choice Un tipo de archivo comprimido para respaldos.
+  \CorrectChoice Un grafo ac\'iclico dirigido: un conjunto de tareas ordenadas
+    por sus dependencias.
+  \choice Un lenguaje de consulta similar a SQL.
+\end{choices}
+
+\question[1] Para el mismo conjunto de datos, ?`qu\'e formato suele ocupar
+\textbf{menos} espacio en disco?
+\begin{choices}
+  \choice JSON sin comprimir.
+  \choice CSV sin comprimir.
+  \CorrectChoice CSV comprimido con gzip (.csv.gz).
+  \choice Todos ocupan exactamente lo mismo.
+\end{choices}
+
+\end{questions}
+
+\end{document}

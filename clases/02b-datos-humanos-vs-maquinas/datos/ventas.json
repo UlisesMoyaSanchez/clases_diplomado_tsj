@@ -1,0 +1,22 @@
+[
+  {
+    "region": "GDL",
+    "ventas": 280000,
+    "periodo": "2026-Q1"
+  },
+  {
+    "region": "CDMX",
+    "ventas": 180000,
+    "periodo": "2026-Q1"
+  },
+  {
+    "region": "MTY",
+    "ventas": 320000,
+    "periodo": "2026-Q1"
+  },
+  {
+    "region": "QRO",
+    "ventas": 95000,
+    "periodo": "2026-Q1"
+  }
+]

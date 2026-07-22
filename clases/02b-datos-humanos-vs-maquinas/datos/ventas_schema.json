@@ -1,0 +1,16 @@
+{
+  "region": {
+    "tipo": "str",
+    "descripcion": "Clave de la region de ventas"
+  },
+  "ventas": {
+    "tipo": "int",
+    "unidad": "MXN",
+    "descripcion": "Ventas del periodo"
+  },
+  "periodo": {
+    "tipo": "str",
+    "formato": "AAAA-Qn",
+    "descripcion": "Trimestre"
+  }
+}
